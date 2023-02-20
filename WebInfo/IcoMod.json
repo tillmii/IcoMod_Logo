@@ -1,0 +1,26 @@
+ {
+            "name": "Logo",
+            "version": "1.0.0",
+            "description": "Zeigt das Logo an",
+            "author": "Till",
+            "license": "MIT",
+            "config": [
+                {
+                    "name": "animation",
+                    "type": "boolean",
+                    "default": true
+                },
+                {
+                    "name": "speed",
+                    "type": "enum",
+                    "default": 1000,
+                    "values": [
+                        1000,
+                        2000,
+                        3000,
+                        4000,
+                        5000
+                    ]
+                }
+            ]
+        }
