@@ -14,7 +14,7 @@
                     "name": "speed",
                     "type": "enum",
                     "default": 1000,
-                    "values": [
+                    "options": [
                         1000,
                         2000,
                         3000,
