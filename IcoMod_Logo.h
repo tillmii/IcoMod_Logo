@@ -8,18 +8,19 @@
 
 #include "Arduino.h"
 #include "IcoMod.h"
+#include <ArduinoJson.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 
 class IcoMod_Logo : public IcoMod
 {
   public:
-    IcoMod_Logo(Adafruit_ST7735* tft, uint16_t color);
+    IcoMod_Logo(Adafruit_ST7735* tft, unsigned int colors[], JsonObject &config);
     void onClick();
     void initialize();
     void refresh();
   private:
-    int _color;
+    unsigned int _color;
     bool _animate;
     int _polygons[10][6];
     unsigned long _animTime;

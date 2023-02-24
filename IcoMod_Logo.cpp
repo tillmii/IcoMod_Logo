@@ -4,20 +4,24 @@
 */
 
 #include "Arduino.h"
+#include "IcoMod_Logo.h"
+#include "ArduinoJson.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
-#include "IcoMod_Logo.h"
+#include "RandomUtils.h"
 
-IcoMod_Logo::IcoMod_Logo(Adafruit_ST7735 *tft, uint16_t color)
+IcoMod_Logo::IcoMod_Logo(Adafruit_ST7735* tft, unsigned int colors[], JsonObject &config)
 {
   _tft = tft;
-  _color = color;
+  _colors = colors;
+
+  _color = RandomUtils::convertHexStringTo16BitColor(config["logoColor"]);
+  _animTime = config["animationSpeed"];
+
   _animate = false;
 
   int polygons[10][6] = {{42, 26, 22, 25, 22, 46}, {22, 50, 7, 64, 22, 78}, {22, 81, 7, 95, 22, 109}, {22, 114, 22, 135, 42, 134}, {50, 135, 64, 149, 78, 135}, {106, 114, 106, 135, 86, 134}, {106, 81, 121, 95, 106, 109}, {106, 50, 121, 64, 106, 78}, {86, 26, 106, 25, 106, 46}, {78, 25, 64, 11, 50, 25}};
   memcpy(&_polygons, &polygons, sizeof(&polygons[0]) * 10 * 6);
-
-  _animTime = 300;
 }
 
 void IcoMod_Logo::onClick()
@@ -27,7 +31,7 @@ void IcoMod_Logo::onClick()
 
 void IcoMod_Logo::initialize()
 {
-  _tft->fillScreen(ST77XX_BLACK);
+  _tft->fillScreen(_colors[0]);
 
   // Middle Part of Logo
   _tft->fillTriangle(44, 109, 44, 50, 36, 118, _color);
@@ -70,7 +74,7 @@ void IcoMod_Logo::refresh()
   {
     _tft->fillTriangle(_polygons[ray][0], _polygons[ray][1], _polygons[ray][2], _polygons[ray][3], _polygons[ray][4], _polygons[ray][5], _color);
     ray = (ray - 1 + 10) % 10;
-    _tft->fillTriangle(_polygons[ray][0], _polygons[ray][1], _polygons[ray][2], _polygons[ray][3], _polygons[ray][4], _polygons[ray][5], ST77XX_BLACK);
+    _tft->fillTriangle(_polygons[ray][0], _polygons[ray][1], _polygons[ray][2], _polygons[ray][3], _polygons[ray][4], _polygons[ray][5], _colors[0]);
     animTimer += _animTime;
   }
 }
