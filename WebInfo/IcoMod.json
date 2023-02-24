@@ -6,20 +6,21 @@
             "license": "MIT",
             "config": [
                 {
-                    "name": "animation",
-                    "type": "boolean",
-                    "default": true
+                    "name": "logoColor",
+                    "type": "color",
+                    "default": "#00ffff"
                 },
                 {
-                    "name": "speed",
+                    "name": "animationSpeed",
                     "type": "enum",
-                    "default": 1000,
+                    "default": 300,
                     "options": [
-                        1000,
-                        2000,
-                        3000,
-                        4000,
-                        5000
+                        150,
+                        300,
+                        450,
+                        600,
+                        750,
+                        900
                     ]
                 }
             ]
